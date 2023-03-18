@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<h1>FORM</h1>
+
+<form method="post" th:action="${produto.id == null} ? @{/produtos/save} : @{/produtos/update}" th:object="${produto}">
+  <input type="hidden" th:field="*{id}">
+  <input type="text" th:field="*{descricao}" placeholder="Descrição">
+  <input type="number" th:field="*{valor}" placeholder="Valor" step="0.01">
+  <input type="submit" value="Enviar">
+</form>
+<a th:href="@{/home}">Home Page</a>
+<a th:href="@{/produtos/list}">Listar Produtos</a>
+<a th:href="@{/vendas/list}">Listar Vendas</a>
+</body>
+</html>
