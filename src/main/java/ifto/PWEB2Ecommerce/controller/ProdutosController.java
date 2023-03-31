@@ -1,6 +1,6 @@
 package ifto.PWEB2Ecommerce.controller;
 
-import ifto.PWEB2Ecommerce.model.entity.Produto;
+import ifto.PWEB2Ecommerce.model.Produto;
 import ifto.PWEB2Ecommerce.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

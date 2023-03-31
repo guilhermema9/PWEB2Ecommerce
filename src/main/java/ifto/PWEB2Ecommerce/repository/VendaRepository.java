@@ -1,6 +1,6 @@
 package ifto.PWEB2Ecommerce.repository;
 
-import ifto.PWEB2Ecommerce.model.entity.Venda;
+import ifto.PWEB2Ecommerce.model.Venda;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;

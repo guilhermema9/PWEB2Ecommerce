@@ -1,9 +1,10 @@
-package ifto.PWEB2Ecommerce.model.entity;
+package ifto.PWEB2Ecommerce.model;
 
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,13 @@ public class Venda implements Serializable   {
     private LocalDate data;
     @OneToMany(mappedBy = "venda")
     private List<ItemVenda> itens;
+    @ManyToOne
+    private Pessoa cliente;
+
+    public Venda() {
+        itens = new ArrayList<>();
+        data = LocalDate.now();
+    }
 
     public double total(){
         double total=0;
@@ -46,5 +54,13 @@ public class Venda implements Serializable   {
 
     public void setItens(List<ItemVenda> itens) {
         this.itens = itens;
+    }
+
+    public Pessoa getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Pessoa cliente) {
+        this.cliente = cliente;
     }
 }

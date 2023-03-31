@@ -1,4 +1,4 @@
-package ifto.PWEB2Ecommerce.model.entity;
+package ifto.PWEB2Ecommerce.model;
 
 import jakarta.persistence.*;
 
