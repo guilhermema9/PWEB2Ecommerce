@@ -24,6 +24,12 @@ public class ProdutosController {
         return "/produtos/form";
     }
 
+    @GetMapping("/atualizar")
+    public ModelAndView atualizar (ModelMap model){
+        model.addAttribute("produtos", repository.produtos());
+        return new ModelAndView("/produtos/atualizar", model);
+    }
+
     @GetMapping("/list")
     public ModelAndView listar(ModelMap model) {
         model.addAttribute("produtos", repository.produtos());

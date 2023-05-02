@@ -17,8 +17,22 @@ public class VendaRepository {
     public Venda venda(Long id){
         return em.find(Venda.class, id);
     }
+
+    public void save (Venda venda){
+        em.persist(venda);
+    }
+
     public List<Venda> vendas(){
         Query query = em.createQuery("from Venda");
         return query.getResultList();
+    }
+
+    public void remove(Long id){
+        Venda venda = em.find(Venda.class, id);
+        em.remove(venda);
+    }
+
+    public void update(Venda venda){
+        em.merge(venda);
     }
 }

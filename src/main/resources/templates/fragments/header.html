@@ -1,0 +1,49 @@
+<header class="container" th:fragment="header">
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" th:href="@{/}">Ecommerce</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Produtos
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" th:href="@{/produtos/list}">Listar Produtos</a></li>
+              <li><a class="dropdown-item" th:href="@{/produtos/atualizar}">Editar Produtos</a></li>
+              <li><a class="dropdown-item" th:href="@{/produtos/form}">Cadastrar Produtos</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Cadastro de Pessoas
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" th:href="@{/pessoasfisicas/form}">Cadastrar Pessoa Física</a></li>
+              <li><a class="dropdown-item" th:href="@{/pessoasjuridicas/form}">Cadastrar Pessoa Juridica</a></li>
+              <li><a class="dropdown-item" th:href="@{/pessoasfisicas/list}">Listar Pessoas Física</a></li>
+              <li><a class="dropdown-item" th:href="@{/pessoasjuridicas/list}">Listar Pessoas Juridica</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/vendas/list}">Vendas</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/vendas/carrinho}">Carrinho de Compras</a>
+          </li>
+      </div>
+    </div>
+  </nav>
+</header>

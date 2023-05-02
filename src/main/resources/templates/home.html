@@ -1,26 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Home</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-<nav>
-  <a th:href="@{/}" class="btn btn-secondary btn-sm disabled" role="button">Home Page</a>
-  <a th:href="@{/produtos/form}" class="btn btn-primary btn-sm" role="button">Cadastrar Produtos</a>
-  <a th:href="@{/produtos/list}" class="btn btn-primary btn-sm" role="button">Listar Produtos</a>
-  <a th:href="@{/pessoasfisicas/form}" class="btn btn-primary btn-sm" role="button">Cadastrar Pessoa Física</a>
-  <a th:href="@{/pessoasjuridicas/form}" class="btn btn-primary btn-sm" role="button">Cadastrar Pessoa Juridica</a>
-  <a th:href="@{/pessoasfisicas/list}" class="btn btn-primary btn-sm" role="button">Listar Pessoas Físicas</a>
-  <a th:href="@{/pessoasjuridicas/list}" class="btn btn-primary btn-sm" role="button">Listar Pessoas Juridicas</a>
-  <a th:href="@{/vendas/list}" class="btn btn-primary btn-sm" role="button">Listar Vendas</a>
-</nav>
-</head>
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="fragments/head :: head(~{})"></head>
 
 <body>
-  <h1>E-Commerce</h1>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+  <main></main>
 </body>
 </html>

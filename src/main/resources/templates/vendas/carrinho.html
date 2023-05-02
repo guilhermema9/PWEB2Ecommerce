@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="fragments/head :: head(~{})"></head>
+
+<body>
+<main>
+  <table class="table" border="1">
+    <thead>
+    <tr>
+      <th>Produto</th>
+      <th>Valor</th>
+      <th>Quantidade</th>
+      <th>Total</th>
+    </tr>
+    </thead>
+
+    <!--
+    <tr th:each="p : ${ ????? }">
+      <td th:text="${p.descricao}"> </td>
+      <td th:text="${p.valor}"> </td>
+      <td th:text="${quantidade}"> </td>
+      <td th:text="${total}"> </td>
+    </tr>
+    -->
+
+    <tr style="text-align: right">
+      <td colspan="3" class="font-weight-bold" >Total do Carrinho R$</td>
+    </tr>
+  </table>
+  <label for="cliente">
+    Cliente
+  </label>
+  <select name="cliente" id="cliente" >
+    <option th:each="p : ${pessoasFisicas}" th:value="${p.id}" th:text="${p.nome}"></option>
+    <option th:each="p : ${pessoasJuridicas}" th:value="${p.id}" th:text="${p.nome}"></option>
+  </select>
+</main>
+</body>
+</html>
