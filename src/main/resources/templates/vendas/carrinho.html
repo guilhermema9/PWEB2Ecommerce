@@ -16,17 +16,21 @@
     </tr>
     </thead>
 
-    <!--
-    <tr th:each="p : ${ ????? }">
-      <td th:text="${p.descricao}"> </td>
-      <td th:text="${p.valor}"> </td>
-      <td th:text="${quantidade}"> </td>
-      <td th:text="${total}"> </td>
+
+    <tr th:each="itemvenda : ${session.venda.itens}">
+      <td th:text="${itemvenda.produto.descricao}"> </td>
+      <td th:text="${itemvenda.produto.valor}"> </td>
+      <td th:text="${itemvenda.quantidade}"> </td>
+      <td th:text="${itemvenda.total}"> </td>
     </tr>
-    -->
+
+
 
     <tr style="text-align: right">
-      <td colspan="3" class="font-weight-bold" >Total do Carrinho R$</td>
+      <td colspan="3" class="font-weight-bold">
+        <label>Total do Carrinho R$</label>
+        <span th:text="${session.venda.total}"></span>
+      </td>
     </tr>
   </table>
   <label for="cliente">

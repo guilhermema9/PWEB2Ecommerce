@@ -1,5 +1,7 @@
 package ifto.PWEB2Ecommerce.controller;
 
+import ifto.PWEB2Ecommerce.model.ItemVenda;
+import ifto.PWEB2Ecommerce.model.Produto;
 import ifto.PWEB2Ecommerce.model.Venda;
 import ifto.PWEB2Ecommerce.repository.ProdutoRepository;
 import ifto.PWEB2Ecommerce.repository.VendaRepository;
@@ -14,14 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Scope("request")
 @Transactional
 @Controller
-@SessionAttributes("vendas")
 @RequestMapping("vendas")
 public class VendasController {
 
     @Autowired
     VendaRepository repository;
-    //@Autowired
-    //Venda venda;
+    @Autowired
+    Venda venda;
     @Autowired
     ProdutoRepository produtoRepository;
 
@@ -31,10 +32,32 @@ public class VendasController {
         return new ModelAndView("/vendas/list", model);
     }
 
+    @PostMapping("/carrinho")
+    public ModelAndView carrinho(ItemVenda itemVenda) {
+
+        Produto p = produtoRepository.produto(itemVenda.getProduto().getId());
+
+        boolean valor = true;
+        for (int i=0; i<venda.getItens().size(); i++){
+            if (venda.getItens().get(i).getProduto().getId() == p.getId()){
+                venda.getItens().get(i).setQuantidade(venda.getItens().get(i).getQuantidade()+itemVenda.getQuantidade());
+                valor = false;
+            }
+        }
+        if(valor){
+            itemVenda.setProduto(p);
+            venda.getItens().add(itemVenda);
+        }
+        if(venda.getItens().size() == 0){
+            itemVenda.setProduto(p);
+            venda.getItens().add(itemVenda);}
+
+        return new ModelAndView("redirect:/produtos/list");
+    }
+
     @GetMapping("/carrinho")
-    public ModelAndView carrinho(ModelMap model) {
-        model.addAttribute("vendas", repository.vendas());
-        return new ModelAndView("/vendas/carrinho", model);
+    public String carrinhoList(){
+        return "/vendas/carrinho";
     }
 
     @PostMapping("/save")

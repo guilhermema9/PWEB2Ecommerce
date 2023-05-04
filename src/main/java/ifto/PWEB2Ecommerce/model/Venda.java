@@ -1,12 +1,16 @@
 package ifto.PWEB2Ecommerce.model;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Scope("session")
+@Component
 @Entity
 public class Venda implements Serializable   {
 
@@ -14,7 +18,7 @@ public class Venda implements Serializable   {
     @Id
     private Long id;
     private LocalDate data;
-    @OneToMany(mappedBy = "venda")
+    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
     private List<ItemVenda> itens;
     @ManyToOne
     private Pessoa cliente;

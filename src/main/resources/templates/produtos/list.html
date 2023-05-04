@@ -6,19 +6,22 @@
 
 <body>
     <main>
-        <table class="table" border="1">
+        <table class="table">
             <thead>
             <tr>
-                <!--<th>Id</th>-->
                 <th>Nome</th>
                 <th>Valor</th>
+                <th>Quantidade</th>
             </tr>
             </thead>
             <tr th:each="p : ${produtos}">
-                <!--<td th:text="${p.id}"> </td>-->
-                <td th:text="${p.descricao}"> </td>
-                <td th:text="${p.valor}"> </td>
-                <td><a th:href="@{/produtos/edit/{id}(id=${p.id})}">Comprar</a></td>
+                <form method="post" th:action="@{/vendas/carrinho}" th:object="${itemVenda}">
+                    <input type="hidden" th:value="${p.id}" th:name="produto.id">
+                    <td th:text="${p.descricao}"> </td>
+                    <td th:text="${p.valor}"> </td>
+                    <td><input type="number" step="1" min="0" value="0" th:name="quantidade" th:value="${itemVenda.quantidade}"></td>
+                    <td><input type="submit" value="Comprar"></td>
+                </form>
             </tr>
         </table>
     </main>

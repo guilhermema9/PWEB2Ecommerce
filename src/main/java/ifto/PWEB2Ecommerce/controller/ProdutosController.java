@@ -1,5 +1,6 @@
 package ifto.PWEB2Ecommerce.controller;
 
+import ifto.PWEB2Ecommerce.model.ItemVenda;
 import ifto.PWEB2Ecommerce.model.Produto;
 import ifto.PWEB2Ecommerce.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
@@ -33,6 +34,7 @@ public class ProdutosController {
     @GetMapping("/list")
     public ModelAndView listar(ModelMap model) {
         model.addAttribute("produtos", repository.produtos());
+        model.addAttribute("itemVenda", new ItemVenda());
         return new ModelAndView("/produtos/list", model);
     }
 
