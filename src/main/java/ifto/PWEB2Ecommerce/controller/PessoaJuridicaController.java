@@ -3,9 +3,11 @@ package ifto.PWEB2Ecommerce.controller;
 import ifto.PWEB2Ecommerce.model.PessoaJuridica;
 import ifto.PWEB2Ecommerce.repository.PessoaJuridicaRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +32,10 @@ public class PessoaJuridicaController {
         return new ModelAndView("/pessoasjuridicas/list", model);
     }
     @PostMapping("/save")
-    public ModelAndView save(PessoaJuridica pessoaJuridica){
+    public ModelAndView save(@Valid PessoaJuridica pessoaJuridica, BindingResult result){
+        if(result.hasErrors()){
+            return new ModelAndView("pessoasjuridicas/form");
+        }
         repository.save(pessoaJuridica);
         return new ModelAndView("redirect:/pessoasjuridicas/list");
     }

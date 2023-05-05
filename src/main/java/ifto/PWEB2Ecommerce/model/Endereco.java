@@ -1,6 +1,7 @@
 package ifto.PWEB2Ecommerce.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 
@@ -10,9 +11,13 @@ public class Endereco implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank
     private String logradouro;
+    @NotBlank
     private String complemento;
+    @NotBlank
     private String bairro;
+    @NotBlank
     private String cep;
     @ManyToOne
     private Pessoa pessoa;

@@ -4,9 +4,11 @@ import ifto.PWEB2Ecommerce.model.ItemVenda;
 import ifto.PWEB2Ecommerce.model.Produto;
 import ifto.PWEB2Ecommerce.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +41,10 @@ public class ProdutosController {
     }
 
     @PostMapping("/save")
-    public ModelAndView save(Produto produto){
+    public ModelAndView save(@Valid Produto produto, BindingResult result){
+        if(result.hasErrors()){
+            return new ModelAndView("/produtos/form");
+        }
         repository.save(produto);
         return new ModelAndView("redirect:/produtos/list");
     }

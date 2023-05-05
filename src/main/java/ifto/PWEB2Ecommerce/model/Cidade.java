@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,6 +14,7 @@ public class Cidade implements Serializable {
 
     @Id
     private int codigo;
+    @NotNull
     private String nome;
     @ManyToOne
     private Estado estado;

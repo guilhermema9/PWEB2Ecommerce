@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}" xmlns="http://www.w3.org/1999/html">
 
 <head th:replace="fragments/head :: head(~{})"></head>
 
@@ -16,30 +16,40 @@
     </tr>
     </thead>
 
+    <form method="post" th:action="@{/vendas/save}">
 
-    <tr th:each="itemvenda : ${session.venda.itens}">
-      <td th:text="${itemvenda.produto.descricao}"> </td>
-      <td th:text="${itemvenda.produto.valor}"> </td>
-      <td th:text="${itemvenda.quantidade}"> </td>
-      <td th:text="${itemvenda.total}"> </td>
-    </tr>
+      <tr th:each="itemvenda : ${session.venda.itens}">
+        <td th:text="${itemvenda.produto.descricao}"> </td>
+        <td th:text="${itemvenda.produto.valor}"> </td>
+        <td th:text="${itemvenda.quantidade}"> </td>
+        <td th:text="${itemvenda.total}"> </td>
+      </tr>
 
 
 
-    <tr style="text-align: right">
-      <td colspan="3" class="font-weight-bold">
-        <label>Total do Carrinho R$</label>
-        <span th:text="${session.venda.total}"></span>
-      </td>
-    </tr>
-  </table>
-  <label for="cliente">
-    Cliente
-  </label>
-  <select name="cliente" id="cliente" >
-    <option th:each="p : ${pessoasFisicas}" th:value="${p.id}" th:text="${p.nome}"></option>
-    <option th:each="p : ${pessoasJuridicas}" th:value="${p.id}" th:text="${p.nome}"></option>
-  </select>
+          <tr style="text-align: right">
+            <td colspan="3" class="font-weight-bold">
+              <label>Total do Carrinho R$</label>
+              <span th:text="${session.venda.total}"></span>
+            </td>
+          </tr>
+        </table>
+        <label for="cliente">Cliente</label>
+          <select name="cliente" id="cliente" >
+            <option th:each="pf : ${clientes}" th:value="${pf.id}" th:text="${pf.nome}"></option>
+          </select>
+
+
+        <!--
+        <option th:each="p : ${pessoasFisicas}" th:value="${p.id}" th:text="${p.nome}"></option>
+        <option th:each="p : ${pessoasJuridicas}" th:value="${p.id}" th:text="${p.nome}"></option>
+        -->
+
+      <input type="submit" value="Finalizar Compra">
+    </form>
+
+
+
 </main>
 </body>
 </html>

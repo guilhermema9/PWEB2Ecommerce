@@ -1,6 +1,8 @@
 package ifto.PWEB2Ecommerce.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
@@ -15,12 +17,16 @@ public abstract class Pessoa implements Serializable {
     @GeneratedValue(generator = "inc")
     @GenericGenerator(name = "inc", strategy = "increment")
     private Long id;
+    @NotBlank
     private String nome;
+    @NotBlank
     private String email;
+    @NotBlank
     private String telefone;
     @OneToMany(mappedBy = "cliente")
     private List<Venda> vendas;
     @OneToMany(mappedBy = "pessoa")
+    @Valid
     private List<Endereco> enderecos = new ArrayList<>();
 
     public Pessoa() {

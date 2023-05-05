@@ -14,7 +14,7 @@
                 <th>Data</th>
                 <th>Total</th>
                 <th>Cliente</th>
-                <th>CPF/CNPJ</th>
+                <th></th>
             </tr>
             </thead>
             <tr th:each="v : ${vendas}">
@@ -22,8 +22,9 @@
                 <td th:text="${v.data}"> </td>
                 <td th:text="${v.total()}"> </td>
                 <td th:text="${v.cliente.nome}"> </td>
-                <td th:text="${v.cliente.getClass().getSimpleName().equals('PessoaFisica') ? 'CPF' : 'CNPJ' }"> </td>
-
+                <td th:text="${v.cliente.getClass().getSimpleName().equals('PessoaFisica') ? 'Pessoa Física' : 'Pessoa Jurídica' }"> </td>
+                <td> <a th:href="@{/vendas/detalhes}">Detalhar Venda</a> </td>
+                <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')" th:href="@{/vendas/remove/{id}(id=${v.id})}">Excluir</a> </td>
             </tr>
         </table>
     </main>

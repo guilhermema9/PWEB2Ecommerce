@@ -3,6 +3,7 @@ package ifto.PWEB2Ecommerce.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +13,7 @@ public class Estado implements Serializable {
 
     @Id
     private int codigo;
+    @NotBlank
     private String nome;
     private String sigla;
     @OneToMany(mappedBy = "estado")
