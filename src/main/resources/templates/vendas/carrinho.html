@@ -18,22 +18,22 @@
 
     <form method="post" th:action="@{/vendas/save}">
 
-      <tr th:each="itemvenda : ${session.venda.itens}">
+      <tr th:each="itemvenda,posicao : ${session.venda.itens}">
         <td th:text="${itemvenda.produto.descricao}"> </td>
         <td th:text="${itemvenda.produto.valor}"> </td>
         <td th:text="${itemvenda.quantidade}"> </td>
         <td th:text="${itemvenda.total}"> </td>
+        <td> <a th:href="@{/vendas/removeItemVenda/{id}(id=${posicao.index})}">Excluir</a> </td>
       </tr>
 
-
-
-          <tr style="text-align: right">
-            <td colspan="3" class="font-weight-bold">
-              <label>Total do Carrinho R$</label>
+      <tr style="text-align: right">
+        <td colspan="3" class="font-weight-bold">
+          <label>Total do Carrinho R$</label>
               <span th:text="${session.venda.total}"></span>
-            </td>
-          </tr>
-        </table>
+        </td>
+      </tr>
+
+  </table>
         <label for="cliente">Cliente</label>
           <select name="cliente" id="cliente" >
             <option th:each="pf : ${clientes}" th:value="${pf.id}" th:text="${pf.nome}"></option>

@@ -4,6 +4,7 @@ import ifto.PWEB2Ecommerce.model.ItemVenda;
 import ifto.PWEB2Ecommerce.model.Pessoa;
 import ifto.PWEB2Ecommerce.model.Produto;
 import ifto.PWEB2Ecommerce.model.Venda;
+import ifto.PWEB2Ecommerce.repository.ItemVendaRepository;
 import ifto.PWEB2Ecommerce.repository.PessoaFisicaRepository;
 import ifto.PWEB2Ecommerce.repository.ProdutoRepository;
 import ifto.PWEB2Ecommerce.repository.VendaRepository;
@@ -29,6 +30,8 @@ public class VendasController {
     ProdutoRepository produtoRepository;
     @Autowired
     PessoaFisicaRepository pessoaFisicaRepository;
+    @Autowired
+    ItemVendaRepository itemVendaRepository;
 
     @GetMapping("/list")
     public ModelAndView listar(ModelMap model) {
@@ -66,7 +69,6 @@ public class VendasController {
 
     @PostMapping("/save")
     public ModelAndView save(Venda venda){
-
         repository.save(venda);
         return new ModelAndView("redirect:/vendas/list");
     }
@@ -75,6 +77,12 @@ public class VendasController {
     public ModelAndView remove(@PathVariable("id") Long id){
         repository.remove(id);
         return new ModelAndView("redirect:/vendas/list");
+    }
+
+    @GetMapping("/removeItemVenda/{id}")
+    public ModelAndView removeItemVenda(@PathVariable("id") int id){
+        venda.getItens().remove(id);
+        return new ModelAndView("redirect:/vendas/carrinho");
     }
 
     @GetMapping("/edit/{id}")

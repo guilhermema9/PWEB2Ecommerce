@@ -14,7 +14,7 @@
       <th>Valor</th>
     </tr>
     </thead>
-    <tr th:each="p : ${produtos}">
+    <tr th:each="p, : ${produtos}">
       <td th:text="${p.id}"> </td>
       <td th:text="${p.descricao}"> </td>
       <td th:text="${p.valor}"> </td>

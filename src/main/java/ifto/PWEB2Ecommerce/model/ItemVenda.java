@@ -1,9 +1,12 @@
 package ifto.PWEB2Ecommerce.model;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
+@Scope("session")
 @Entity
 public class ItemVenda implements Serializable {
 
