@@ -40,7 +40,7 @@ public class PessoaJuridicaController {
         return new ModelAndView("redirect:/pessoasjuridicas/list");
     }
 
-    @GetMapping("/remode/{id}")
+    @GetMapping("/remove/{id}")
     public ModelAndView remove(@PathVariable("id") Long id){
         repository.remove(id);
         return new ModelAndView("redirect:/pessoasjuridicas/list");

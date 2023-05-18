@@ -7,76 +7,191 @@
 <body>
   <main>
     <h1>Cadastro de Pessoa Juridica</h1>
+    <form method="post" th:action="@{/pessoasjuridicas/save}" th:object="${pessoaJuridica}">
+      <fieldset>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="nome">Razão Social</label>
+            <label
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('nome')}"
+                    th:errors="*{nome}">
+            </label>
+            <input
+                    type="text"
+                    id="nome"
+                    class="form-control"
+                    th:field="*{nome}"
+                    th:errorclass="is-invalid"
+                    required
+                    placeholder="Digite a Razão Social">
+          </div>
+          <div class="col-md-6">
+            <label for="cnpj">CNPJ</label>
+            <label
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('cnpj')}"
+                    th:errors="*{cnpj}">
+            </label>
+            <input
+                    type="text"
+                    id="cnpj"
+                    class="form-control"
+                    th:field="*{cnpj}"
+                    th:errorclass="is-invalid"
+                    required
+                    placeholder="Digite o CNPJ">
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="email">E-mail</label>
+            <label
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('email')}"
+                    th:errors="*{email}">
+            </label>
+            <input
+                    type="email"
+                    id="email"
+                    class="form-control"
+                    th:field="*{email}"
+                    th:errorclass="is-invalid"
+                    required
+                    placeholder="Digite seu melhor e-mail">
+          </div>
+          <div class="col-md-6">
+            <label for="telefone">Telefone</label>
+            <label
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('telefone')}"
+                    th:errors="*{telefone}">
+            </label>
+            <input
+                    type="text"
+                    id="telefone"
+                    class="form-control"
+                    th:field="*{telefone}"
+                    th:errorclass="is-invalid"
+                    required
+                    placeholder="Digite seu melhor telefone">
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="descricao>">Descrição</label>
+            <label
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('enderecos[0].descricao')}"
+                    th:errors="*{enderecos[0].descricao}">
+            </label>
+            <input
+                    type="text"
+                    id="descricao>"
+                    name="descricao"
+                    class="form-control"
+                    th:errorclass="is-invalid"
+                    th:field="*{enderecos[0].descricao}"
+                    required
+                    placeholder="Digite a descrição do endereço">
+            <small id="passwordHelpBlock" class="form-text text-muted">
+              Exemplo: Sede, Matriz, Filial, Depósito, Galpão, etc.
+            </small>
+          </div>
+        </div>
 
-    <form method="post" th:action="${pessoaJuridica.id == null} ? @{/pessoasjuridicas/save} : @{/pessoasjuridicas/update}" th:object="${pessoaJuridica}">
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="nome">Razão Social</label>
-          <input type="text" class="form-control" id="nome" th:field="*{nome}" th:errorclass="is-invalid" placeholder="Digite a Razão Social">
-          <label class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></label>
+        <div class="row g-3">
+          <div class="col-md-2">
+            <label for="cep">CEP</label>
+            <label
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('enderecos[0].cep')}"
+                    th:errors="*{enderecos[0].cep}">
+            </label>
+            <input
+                    type="text"
+                    id="cep"
+                    name="cep"
+                    class="form-control"
+                    onblur="pesquisacep(this.value);"
+                    th:errorclass="is-invalid"
+                    th:field="*{enderecos[0].cep}"
+                    required
+                    placeholder="Digite o CEP">
+          </div>
         </div>
-        <div class="form-group col-md-6">
-          <label for="cnpj">CNPJ</label>
-          <input type="text" class="form-control" id="cnpj" th:field="*{cnpj}" th:errorclass="is-invalid" placeholder="Digite o CNPJ">
-          <label class="invalid-feedback" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></label>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="rua">Logradouro</label>
+            <label
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('enderecos[0].logradouro')}"
+                    th:errors="*{enderecos[0].logradouro}">
+            </label>
+            <input
+                    type="text"
+                    id="rua"
+                    class="form-control"
+                    th:field="*{enderecos[0].logradouro}"
+                    th:errorclass="is-invalid"
+                    required
+                    placeholder="Digite seu endereço">
+          </div>
+          <div class="col-md-6">
+            <label for="complemento">Complemento</label>
+            <label
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('enderecos[0].complemento')}"
+                    th:errors="*{enderecos[0].complemento}">
+            </label>
+            <input
+                    type="text"
+                    id="complemento"
+                    class="form-control"
+                    th:field="*{enderecos[0].complemento}"
+                    th:errorclass="is-invalid"
+                    required
+                    placeholder="Digite o complemento">
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="email">E-mail</label>
-        <input type="email" class="form-control" id="email" th:field="*{email}" th:errorclass="is-invalid" placeholder="Digite seu melhor e-mail">
-        <label class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
-      </div>
-      <div class="form-group">
-        <label for="telefone">Telefone</label>
-        <input type="text" class="form-control" id="telefone" th:field="*{telefone}" th:errorclass="is-invalid" placeholder="Digite seu melhor telefone">
-        <label class="invalid-feedback" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></label>
-      </div>
-      <div class="form-group">
-        <label for="endereco">Logradouro</label>
-        <input type="text" class="form-control" id="endereco" th:field="*{enderecos[0].logradouro}" th:errorclass="is-invalid" placeholder="Digite seu endereço">
-        <label class="invalid-feedback" th:if="${#fields.hasErrors('enderecos[0].logradouro')}" th:errors="*{enderecos[0].logradouro}"></label>
-      </div>
-      <div class="form-group">
-        <label for="complemento">Complemento</label>
-        <input type="text" class="form-control" id="complemento" th:field="*{enderecos[0].complemento}" th:errorclass="is-invalid" placeholder="Digite o complemento">
-        <label class="invalid-feedback" th:if="${#fields.hasErrors('enderecos[0].complemento')}" th:errors="*{enderecos[0].complemento}"></label>
-      </div>
-      <div class="form-group">
-        <label for="bairro">Bairro</label>
-        <input type="text" class="form-control" id="bairro" th:field="*{enderecos[0].bairro}" th:errorclass="is-invalid" placeholder="Digite o bairro">
-        <label class="invalid-feedback" th:if="${#fields.hasErrors('enderecos[0].bairro')}" th:errors="*{enderecos[0].bairro}"></label>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="cidade">Cidade</label>
-          <input type="text" class="form-control" id="cidade" th:field="*{enderecos[0].cidade}" th:errorclass="is-invalid" placeholder="Digite a cidade a cidade">
-          <label class="invalid-feedback" th:if="${#fields.hasErrors('enderecos[0].cidade')}" th:errors="*{enderecos[0].cidade}"></label>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="bairro">Bairro</label>
+            <label
+                    class="invalid-feedback"
+                    th:if="${#fields.hasErrors('enderecos[0].bairro')}"
+                    th:errors="*{enderecos[0].bairro}">
+            </label>
+            <input
+                    type="text"
+                    id="bairro"
+                    class="form-control"
+                    th:field="*{enderecos[0].bairro}"
+                    th:errorclass="is-invalid"
+                    required
+                    placeholder="Digite o bairro">
+          </div>
+          <div class="col-md-4">
+            <label for="cidade">Cidade</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="cidade"
+                    th:field="*{enderecos[0].cidade}">
+          </div>
+          <div class="col-md-2">
+            <label for="uf">Estado</label>
+            <input
+                    type="text"
+                    id="uf"
+                    class="form-control"
+                    th:field="*{enderecos[0].cidade.estado}">
+          </div>
         </div>
-
-        <div class="form-group col-md-6">
-          <label for="estado">Estado</label>
-          <input type="text" class="form-control" id="estado" th:field="*{enderecos[0].cidade.estado}" th:errorclass="is-invalid" placeholder="Digite o estado">
-          <label class="invalid-feedback" th:if="${#fields.hasErrors('enderecos[0].cidade.estado')}" th:errors="*{enderecos[0].cidade.estado}"></label>
-        </div>
-
-        <!--
-        <div class="form-group col-md-4">
-          <label for="estado">Estado</label>
-          <select id="estado" class="form-control">
-            <option selected>Choose...</option>
-            <option>...</option>
-          </select>
-        </div>
-        -->
-
-        <div class="form-group col-md-2">
-          <label for="cep">CEP</label>
-          <input type="text" class="form-control" id="cep" th:field="*{enderecos[0].cep}" th:errorclass="is-invalid" placeholder="Digite o CEP">
-          <label class="invalid-feedback" th:if="${#fields.hasErrors('enderecos[0].cep')}" th:errors="*{enderecos[0].cep}"></label>
-        </div>
-      </div>
-      <input type="submit" value="Cadastrar">
+      </fieldset>
+      <input type="submit" class="btn btn-primary mb-2" value="Cadastrar">
     </form>
+    <script th:src="@{/script/cep.js}"></script>
   </main>
 </body>
 </html>

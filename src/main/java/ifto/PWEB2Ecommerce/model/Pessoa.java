@@ -25,12 +25,16 @@ public abstract class Pessoa implements Serializable {
     private String telefone;
     @OneToMany(mappedBy = "cliente")
     private List<Venda> vendas;
-    @OneToMany(mappedBy = "pessoa")
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
     @Valid
-    private List<Endereco> enderecos = new ArrayList<>();
+    private List<Endereco> enderecos;
 
     public Pessoa() {
         vendas = new ArrayList<>();
+        enderecos = new ArrayList<>();
+    }
+
+    public Pessoa(Long id, String nome, String email, String telefone, List<Venda> vendas, List<Endereco> enderecos) {
     }
 
     public Long getId() {

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="fragments/head :: head(~{})"></head>
+
+<body>
+<main>
+  <form method="post" th:action="@{/vendas/finalizarcompra}" >
+    <div class="row g-3">
+      <div class="col-md-6">
+        <h3>Selecionar endereço</h3>
+
+            <div th:each="end : ${session.venda.cliente.enderecos}">
+            <span th:text="${end.descricao}"> </span>
+            <span th:text="${end.logradouro}"> </span>
+            <span th:text="${end.bairro}"> </span>
+            </div>
+
+      </div>
+    </div>
+  </form>
+
+
+
+
+
+
+</main>
+</body>
+</html>

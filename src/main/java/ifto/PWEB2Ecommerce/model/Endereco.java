@@ -12,8 +12,10 @@ public class Endereco implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank
-    private String logradouro;
+    private String descricao;
+
     @NotBlank
+    private String logradouro;
     private String complemento;
     @NotBlank
     private String bairro;
@@ -21,8 +23,12 @@ public class Endereco implements Serializable {
     private String cep;
     @ManyToOne
     private Pessoa pessoa;
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     private Cidade cidade;
+
+  /*  public Endereco() {
+        this.cidade = new Cidade();
+    }*/
 
     public int getId() {
         return id;
@@ -79,4 +85,13 @@ public class Endereco implements Serializable {
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
 }

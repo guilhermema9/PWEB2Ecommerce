@@ -16,8 +16,6 @@
     </tr>
     </thead>
 
-    <form method="post" th:action="@{/vendas/save}">
-
       <tr th:each="itemvenda,posicao : ${session.venda.itens}">
         <td th:text="${itemvenda.produto.descricao}"> </td>
         <td th:text="${itemvenda.produto.valor}"> </td>
@@ -34,21 +32,22 @@
       </tr>
 
   </table>
-        <label for="cliente">Cliente</label>
-          <select name="cliente" id="cliente" >
-            <option th:each="pf : ${clientes}" th:value="${pf.id}" th:text="${pf.nome}"></option>
+
+  <form method="post" th:action="@{/vendas/selecionapessoafisica}" th:object="${pessoaFisica}">
+        <label for="pf">Cliente</label>
+          <select th:field="*{id}" id="pf" >
+            <option th:each="pf : ${pessoasFisicas}" th:value="${pf.id}"  th:text="${pf.nome}"></option>
           </select>
+      <input type="submit" value="Selecionar Pessoa Fisica">
+  </form>
 
-
-        <!--
-        <option th:each="p : ${pessoasFisicas}" th:value="${p.id}" th:text="${p.nome}"></option>
-        <option th:each="p : ${pessoasJuridicas}" th:value="${p.id}" th:text="${p.nome}"></option>
-        -->
-
-      <input type="submit" value="Finalizar Compra">
-    </form>
-
-
+  <form method="post" th:action="@{/vendas/selecionapessoajuridica}" th:object="${pessoasJuridicas}">
+    <label for="pj">Cliente</label>
+    <select name="pj" id="pj" >
+      <option th:each="pj : ${pessoasJuridicas}" th:value="${pj}" th:text="${pj.nome}"></option>
+    </select>
+    <input type="submit" value="Selecionar Pessoa Juridica">
+  </form>
 
 </main>
 </body>

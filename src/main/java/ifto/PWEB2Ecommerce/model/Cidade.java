@@ -1,9 +1,7 @@
 package ifto.PWEB2Ecommerce.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -13,13 +11,18 @@ import java.util.List;
 public class Cidade implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
-    @NotNull
+    @NotBlank
     private String nome;
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     private Estado estado;
     @OneToMany(mappedBy = "cidade")
     private List<Endereco> enderecos;
+
+    /*public Cidade() {
+        this.estado = new Estado();
+    }*/
 
     public int getCodigo() {
         return codigo;

@@ -1,13 +1,7 @@
 package ifto.PWEB2Ecommerce.controller;
 
-import ifto.PWEB2Ecommerce.model.ItemVenda;
-import ifto.PWEB2Ecommerce.model.Pessoa;
-import ifto.PWEB2Ecommerce.model.Produto;
-import ifto.PWEB2Ecommerce.model.Venda;
-import ifto.PWEB2Ecommerce.repository.ItemVendaRepository;
-import ifto.PWEB2Ecommerce.repository.PessoaFisicaRepository;
-import ifto.PWEB2Ecommerce.repository.ProdutoRepository;
-import ifto.PWEB2Ecommerce.repository.VendaRepository;
+import ifto.PWEB2Ecommerce.model.*;
+import ifto.PWEB2Ecommerce.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -30,6 +24,8 @@ public class VendasController {
     ProdutoRepository produtoRepository;
     @Autowired
     PessoaFisicaRepository pessoaFisicaRepository;
+    @Autowired
+    PessoaJuridicaRepository pessoaJuridicaRepository;
     @Autowired
     ItemVendaRepository itemVendaRepository;
 
@@ -63,8 +59,24 @@ public class VendasController {
 
     @GetMapping("/carrinho")
     public String carrinhoList(ModelMap model){
-        model.addAttribute("clientes",pessoaFisicaRepository.pessoasFisicas());
+        model.addAttribute("pessoasFisicas",pessoaFisicaRepository.pessoasFisicas());
+        model.addAttribute("pessoasJuridicas",pessoaJuridicaRepository.pessoasJuridicas());
+        model.addAttribute("pessoaFisica", new PessoaFisica());
         return "/vendas/carrinho";
+    }
+
+    @PostMapping("/selecionapessoafisica")
+    public String selecionaPessoaFisica(PessoaFisica pessoaFisica){
+        venda.setCliente(pessoaFisicaRepository.pessoaFisica(pessoaFisica.getId()));
+        System.out.println(venda.getCliente().getEnderecos().get(0).getLogradouro());
+        System.out.println(venda.getCliente().getEnderecos().get(0).getBairro());
+        return "/vendas/selecionaendereco";
+    }
+
+    @PostMapping("/selecionapessoajuridica")
+    public String selecionaPessoaJuridica(PessoaJuridica pessoaJuridica){
+        venda.setCliente(pessoaJuridica);
+        return "/vendas/selecionaendereco";
     }
 
     @PostMapping("/save")

@@ -1,5 +1,6 @@
 package ifto.PWEB2Ecommerce.controller;
 
+import ifto.PWEB2Ecommerce.model.Endereco;
 import ifto.PWEB2Ecommerce.model.PessoaFisica;
 import ifto.PWEB2Ecommerce.repository.PessoaFisicaRepository;
 import jakarta.transaction.Transactional;
@@ -23,6 +24,7 @@ public class PessoaFisicaController {
 
     @GetMapping("/form")
     public String form (PessoaFisica pessoaFisica){
+        pessoaFisica.getEnderecos().add(new Endereco());
         return "pessoasfisicas/form";
     }
 
@@ -33,15 +35,19 @@ public class PessoaFisicaController {
     }
 
     @PostMapping("/save")
+    @Transactional
     public ModelAndView save(@Valid PessoaFisica pessoaFisica, BindingResult result){
         if(result.hasErrors()){
             return new ModelAndView("pessoasfisicas/form");
         }
+        PessoaFisica p = pessoaFisica;
+        pessoaFisica.getEnderecos().get(0).setPessoa(p);
+        System.out.println(pessoaFisica);
         repository.save(pessoaFisica);
         return new ModelAndView("redirect:/pessoasfisicas/list");
     }
 
-    @GetMapping("/remode/{id}")
+    @GetMapping("/remove/{id}")
     public ModelAndView remove(@PathVariable("id") Long id){
         repository.remove(id);
         return new ModelAndView("redirect:/pessoasfisicas/list");
