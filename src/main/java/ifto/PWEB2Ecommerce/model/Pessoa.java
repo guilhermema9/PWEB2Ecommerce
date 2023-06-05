@@ -28,13 +28,12 @@ public abstract class Pessoa implements Serializable {
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
     @Valid
     private List<Endereco> enderecos;
+    @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
+    private Usuario usuario;
 
     public Pessoa() {
         vendas = new ArrayList<>();
         enderecos = new ArrayList<>();
-    }
-
-    public Pessoa(Long id, String nome, String email, String telefone, List<Venda> vendas, List<Endereco> enderecos) {
     }
 
     public Long getId() {
@@ -83,5 +82,13 @@ public abstract class Pessoa implements Serializable {
 
     public void setEnderecos(List<Endereco> enderecos) {
         this.enderecos = enderecos;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

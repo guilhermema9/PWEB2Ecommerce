@@ -5,25 +5,33 @@
 <head th:replace="fragments/head :: head(~{})"></head>
 
 <body>
-    <main>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Valor</th>
-                <th>Quantidade</th>
-            </tr>
-            </thead>
-            <tr th:each="p : ${produtos}">
-                <form method="post" th:action="@{/vendas/carrinho}" th:object="${itemVenda}">
-                    <input type="hidden" th:value="${p.id}" th:name="produto.id">
-                    <td th:text="${p.descricao}"> </td>
-                    <td th:text="${p.valor}"> </td>
-                    <td><input type="number" step="1" min="0" value="0" th:name="quantidade" th:value="${itemVenda.quantidade}"></td>
-                    <td><input type="submit" value="Comprar"></td>
-                </form>
-            </tr>
-        </table>
-    </main>
+<main class="container">
+
+    <form th:action="@{/produtos/listarpornome}">
+        <label for="buscaNome">Buscar Produto Por Nome</label>
+        <input type="text" id="buscaNome" name="nomeproduto" placeholder="Buscar Produto">
+        <input type="submit" value="Buscar">
+    </form>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Valor</th>
+            <th>Quantidade</th>
+        </tr>
+        </thead>
+        <tr th:each="p : ${produtos}">
+            <form method="post" th:action="@{/vendas/carrinho}" th:object="${itemVenda}">
+                <input type="hidden" th:value="${p.id}" th:name="produto.id">
+                <td th:text="${p.descricao}"> </td>
+                <td th:text="${p.valor}"> </td>
+                <td><input type="number" step="1" min="0" value="0" th:name="quantidade" th:value="${itemVenda.quantidade}"></td>
+                <td><input type="submit" value="Comprar"></td>
+            </form>
+        </tr>
+    </table>
+</main>
 </body>
 </html>

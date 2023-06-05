@@ -27,6 +27,13 @@ public class ProdutoRepository {
         return query.getResultList();
     }
 
+    public List<Produto> produtosPorNome(String nome){
+        Query query = em.createQuery("from Produto as produto where lower(produto.descricao) like lower(:nome)");
+        // transformar a busca em CASE INSENSITIVE
+        query.setParameter("nome","%"+nome+"%");
+        return query.getResultList();
+    }
+
     public void remove(Long id){
         Produto produto = em.find(Produto.class, id);
         em.remove(produto);

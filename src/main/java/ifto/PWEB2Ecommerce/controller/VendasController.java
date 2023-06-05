@@ -75,7 +75,7 @@ public class VendasController {
 
     @PostMapping("/selecionapessoajuridica")
     public String selecionaPessoaJuridica(PessoaJuridica pessoaJuridica){
-        venda.setCliente(pessoaJuridica);
+        venda.setCliente(pessoaJuridicaRepository.pessoaJuridica(pessoaJuridica.getId()));
         return "/vendas/selecionaendereco";
     }
 
@@ -107,5 +107,11 @@ public class VendasController {
     public ModelAndView update(Venda venda) {
         repository.update(venda);
         return new ModelAndView("redirect:/vendas/list");
+    }
+
+    @GetMapping("/detalhes/{id}")
+    public ModelAndView detalhes(@PathVariable("id") Long id, ModelMap model){
+        model.addAttribute("venda",repository.venda(id));
+        return new ModelAndView("/vendas/detalhes",model);
     }
 }

@@ -1,5 +1,6 @@
 package ifto.PWEB2Ecommerce.controller;
 
+import ifto.PWEB2Ecommerce.model.Endereco;
 import ifto.PWEB2Ecommerce.model.PessoaJuridica;
 import ifto.PWEB2Ecommerce.repository.PessoaJuridicaRepository;
 import jakarta.transaction.Transactional;
@@ -23,6 +24,7 @@ public class PessoaJuridicaController {
 
     @GetMapping("/form")
     public String form (PessoaJuridica pessoaJuridica){
+        pessoaJuridica.getEnderecos().add(new Endereco());
         return "pessoasjuridicas/form";
     }
 
@@ -36,6 +38,8 @@ public class PessoaJuridicaController {
         if(result.hasErrors()){
             return new ModelAndView("pessoasjuridicas/form");
         }
+        PessoaJuridica p = pessoaJuridica;
+        pessoaJuridica.getEnderecos().get(0).setPessoa(p);
         repository.save(pessoaJuridica);
         return new ModelAndView("redirect:/pessoasjuridicas/list");
     }
