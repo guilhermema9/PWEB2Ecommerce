@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html th:replace="~{fragments/layout :: layout(~{::head},~{::main})}">
+
+<head th:replace="fragments/head :: head(~{})"></head>
+
+<body>
+<main class="container">
+    <h1>Lista de Pessoas Físicas Cadastradas</h1>
+    <table class="table" border="1">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>CPF</th>
+        </tr>
+        </thead>
+        <tr th:each="p : ${pessoasfisicas}">
+            <td th:text="${p.id}"> </td>
+            <td th:text="${p.nome}"> </td>
+            <td th:text="${p.cpf}"> </td>
+            <td> <a th:href="@{/pessoasfisicas/edit/{id}(id=${p.id})}">Editar</a> </td>
+            <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')" th:href="@{/pessoasfisicas/remove/{id}(id=${p.id})}">Excluir</a> </td>
+        </tr>
+    </table>
+</main>
+</body>
+</html>

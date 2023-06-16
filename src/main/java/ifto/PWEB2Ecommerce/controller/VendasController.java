@@ -38,7 +38,6 @@ public class VendasController {
     @PostMapping("/carrinho")
     public ModelAndView carrinho(ItemVenda itemVenda) {
         Produto produto = produtoRepository.produto(itemVenda.getProduto().getId());
-
         boolean valor = true;
         for (int i=0; i<venda.getItens().size(); i++){
             if (venda.getItens().get(i).getProduto().getId() == produto.getId()){
@@ -49,18 +48,18 @@ public class VendasController {
         if(valor){
             itemVenda.setProduto(produto);
             venda.getItens().add(itemVenda);
+            itemVenda.setVenda(venda);
         }
         if(venda.getItens().size() == 0){
             itemVenda.setProduto(produto);
-            venda.getItens().add(itemVenda);}
-
+            venda.getItens().add(itemVenda);
+            itemVenda.setVenda(venda);
+        }
         return new ModelAndView("redirect:/produtos/list");
     }
 
     @GetMapping("/carrinho")
     public String carrinhoList(ModelMap model){
-        model.addAttribute("pessoasFisicas",pessoaFisicaRepository.pessoasFisicas());
-        model.addAttribute("pessoasJuridicas",pessoaJuridicaRepository.pessoasJuridicas());
         model.addAttribute("pessoaFisica", new PessoaFisica());
         return "/vendas/carrinho";
     }
@@ -68,20 +67,49 @@ public class VendasController {
     @PostMapping("/selecionapessoafisica")
     public String selecionaPessoaFisica(PessoaFisica pessoaFisica){
         venda.setCliente(pessoaFisicaRepository.pessoaFisica(pessoaFisica.getId()));
-        System.out.println(venda.getCliente().getEnderecos().get(0).getLogradouro());
-        System.out.println(venda.getCliente().getEnderecos().get(0).getBairro());
+        pessoaFisica.getVendas().add(venda);
         return "/vendas/selecionaendereco";
     }
 
     @PostMapping("/selecionapessoajuridica")
     public String selecionaPessoaJuridica(PessoaJuridica pessoaJuridica){
         venda.setCliente(pessoaJuridicaRepository.pessoaJuridica(pessoaJuridica.getId()));
+        pessoaJuridica.getVendas().add(venda);
         return "/vendas/selecionaendereco";
     }
 
+    @GetMapping("carregar-pessoa")
+    public String carregar(@RequestParam String tipo, ModelMap model){
+        if(tipo.equals("Pessoa Física")){
+            //return lista(pessoas) de pf
+            model.addAttribute("pessoas", pessoaFisicaRepository.pessoasFisicas());
+        }else{
+            //return lista(pessoas) de pj
+            model.addAttribute("pessoas", pessoaJuridicaRepository.pessoasJuridicas());
+        }
+        return "/vendas/carrinho";
+    }
+
+    @GetMapping("seleciona-endereco/{id}")
+    public ModelAndView selecionaEndereco(@PathVariable("id") Long id){
+        Pessoa pessoa = null;
+        if ( pessoaFisicaRepository.pessoaFisica(id) instanceof PessoaFisica ){
+            pessoa = pessoaFisicaRepository.pessoaFisica(id);
+        } else {
+            pessoa = pessoaJuridicaRepository.pessoaJuridica(id);
+        }
+        venda.setCliente(pessoa);
+        return new ModelAndView("/vendas/selecionaendereco");
+    }
+
     @PostMapping("/save")
-    public ModelAndView save(Venda venda){
+    public ModelAndView save(Endereco endereco){
+
+
+
         repository.save(venda);
+
+
         return new ModelAndView("redirect:/vendas/list");
     }
 

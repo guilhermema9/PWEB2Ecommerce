@@ -29,8 +29,6 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.POST, "/pessoasfisicas/save").permitAll()
                                 .requestMatchers("/pessoasjuridicas/form").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/pessoasjuridicas/save").permitAll()
-                                //.requestMatchers("/h2-console/**").permitAll()
-                                //.requestMatchers(HttpMethod.POST, "/h2-console").permitAll()
                                 .requestMatchers("/h2-console/**").permitAll() // Permitir o acesso ao H2 Console
                                 .anyRequest().authenticated()
                                 .and()

@@ -18,7 +18,7 @@ public class Venda implements Serializable   {
     @Id
     private Long id;
     private LocalDate data;
-    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "venda", cascade = CascadeType.PERSIST)
     private List<ItemVenda> itens;
     @ManyToOne
     private Pessoa cliente;
