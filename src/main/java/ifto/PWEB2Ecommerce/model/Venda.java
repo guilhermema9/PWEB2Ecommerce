@@ -22,7 +22,7 @@ public class Venda implements Serializable   {
     private List<ItemVenda> itens;
     @ManyToOne
     private Pessoa cliente;
-    @OneToOne
+    @OneToOne (cascade = CascadeType.PERSIST)
     private Endereco endereco;
 
     public Venda() {

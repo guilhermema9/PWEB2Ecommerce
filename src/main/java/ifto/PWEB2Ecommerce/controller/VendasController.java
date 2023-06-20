@@ -28,6 +28,8 @@ public class VendasController {
     PessoaJuridicaRepository pessoaJuridicaRepository;
     @Autowired
     ItemVendaRepository itemVendaRepository;
+    @Autowired
+    EnderecoRepository enderecoRepository;
 
     @GetMapping("/list")
     public ModelAndView listar(ModelMap model) {
@@ -102,14 +104,12 @@ public class VendasController {
         return new ModelAndView("/vendas/selecionaendereco");
     }
 
-    @PostMapping("/save")
-    public ModelAndView save(Endereco endereco){
-
-
-
+    @GetMapping("/save/{id}")
+    public ModelAndView save(@PathVariable("id") Long id){
+        Endereco enderecoDeEntrega = enderecoRepository.endereco(id);
+        venda.setEndereco(enderecoDeEntrega);
         repository.save(venda);
-
-
+        venda.getItens().clear();
         return new ModelAndView("redirect:/vendas/list");
     }
 

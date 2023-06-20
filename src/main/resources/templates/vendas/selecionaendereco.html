@@ -13,13 +13,18 @@
             <h3>Cliente:</h3>
             <h3 th:text="${session.venda.cliente.nome}"> </h3>
             <div th:each="end : ${session.venda.cliente.enderecos}">
-            <span th:text="${end.descricao}"> </span>
-            <span th:text="${end.logradouro}"> </span>
-            <span th:text="${end.bairro}"> </span>
+                <span hidden="hidden" th:text="${end.id}"> </span>
+                <span th:text="${end.descricao}"> </span>
+                <span th:text="${end.logradouro}"> </span>
+                <span th:text="${end.bairro}"> </span>
+                <a th:href="@{/vendas/save/{id}(id=${end.id})}">Finalizar Compra</a>
             </div>
       </div>
     </div>
-      <input type="submit" value="Finalizar Compra">
+
+
+      <!--<input type="submit" value="Finalizar Compra">-->
+
   </form>
 </main>
 </body>
