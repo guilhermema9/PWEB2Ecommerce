@@ -29,6 +29,8 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.POST, "/pessoasfisicas/save").permitAll()
                                 .requestMatchers("/pessoasjuridicas/form").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/pessoasjuridicas/save").permitAll()
+                                .requestMatchers("/cadastrar/form-pessoafisica").permitAll()
+                                .requestMatchers("/cadastrar/form-pessoajuridica").permitAll()
                                 .requestMatchers("/h2-console/**").permitAll() // Permitir o acesso ao H2 Console
                                 .anyRequest().authenticated()
                                 .and()
@@ -41,6 +43,40 @@ public class SecurityConfiguration {
                                 .and()
                                 .logout()
                                 .permitAll();
+
+
+                                /*
+                                .requestMatchers("/webjars/**").permitAll()
+                                .requestMatchers("/script/**").permitAll()
+                                .requestMatchers("/form-pessoafisica").permitAll()
+                                .requestMatchers("form-pessoajuridica").permitAll()
+                                .requestMatchers("/cadastrar-pessoafisica").permitAll()
+                                .requestMatchers("/cadastrar-pessoajuridica").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/salvar-pessoa/**").permitAll()
+                                .requestMatchers("/pessoasfisicas").hasRole("ADMIN")
+                                .requestMatchers("/pessoasjuridicas").hasRole("ADMIN")
+                                .requestMatchers("/produtos/").hasRole("ADMIN")
+                                .requestMatchers("/produtos/**").hasRole("ADMIN")
+                                .requestMatchers("/vendas/**").hasRole("USER")
+                                .requestMatchers("/pessoasfisicas/form").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/pessoasfisicas/save").permitAll()
+                                .requestMatchers("/pessoasjuridicas/form").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/pessoasjuridicas/save").permitAll()
+                                .requestMatchers("/h2-console/**").permitAll() // Permitir o acesso ao H2 Console
+                                .anyRequest()
+                                .authenticated()
+                                .and()
+                                .formLogin() //define que a autenticação pode ser feita via formulário de login.
+                                .loginPage("/login").defaultSuccessUrl("/", true) // passamos como parâmetro a URL para acesso à página de login que criamos
+                                .permitAll() //define que essa página pode ser acessada por todos, independentemente do usuário estar autenticado ou não.
+                                .and()
+                                .headers().frameOptions().sameOrigin() // Permitir que o H2 Console seja exibido em um iframe
+                                .and()
+                                .csrf().disable() // Desabilitar a proteção CSRF (Cross-Site Request Forgery) para o H2 Console
+                                .logout()
+                                .permitAll();
+                                */
+
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
